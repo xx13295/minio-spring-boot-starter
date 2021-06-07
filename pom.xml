@@ -18,12 +18,14 @@
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <minio.version>8.2.1</minio.version>
     </properties>
     <developers>
         <developer>
             <name>wxm</name>
             <email>i@ojbk.plus</email>
             <organization>springboot.io</organization>
+            <url>https://github.com/xx13295/minio-spring-boot-starter</url>
         </developer>
     </developers>
     <!--licenses信息-->
@@ -41,9 +43,6 @@
         <developerConnection>scm:git:git@github.com:xx13295/minio-spring-boot-starter.git</developerConnection>
     </scm>
 
-
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,7 +56,7 @@
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
-            <version>8.2.1</version>
+            <version>${minio.version}</version>
         </dependency>
 
     </dependencies>

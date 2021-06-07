@@ -26,6 +26,18 @@ public class MinioUtils {
         throw new IllegalArgumentException("非法文件名称：" + fileName);
     }
 
+    /**
+     * 获取文件名
+     * @param object 存储桶中的对象名称
+     * @return
+     */
+    public static String getFileName(String object){
+        if(object == null || "".equals(object)){
+            throw new IllegalArgumentException("非法文件名称：" + object);
+        }
+        String[] a =  object.split("/");
+        return a[a.length-1];
+    }
 
     /**
      * 获取年月日[2020, 09, 01]
