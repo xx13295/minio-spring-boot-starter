@@ -196,6 +196,9 @@ https://docs.min.io/cn/minio-quickstart-guide.html
 
 ### docker 安装
 
+
+```
+
 docker run -itd -p 9000:9000 --name minio \
 -e "MINIO_ACCESS_KEY=test" \
 -e "MINIO_SECRET_KEY=test123456789" \
@@ -203,13 +206,18 @@ docker run -itd -p 9000:9000 --name minio \
 -v /disk1/dockerContainer/minio/config:/root/.minio \
 minio/minio server /data
 
+```
 
 解释：
+
 -e为环境变量参数
+
 MINIO_ACCESS_KEY 和 MINIO_SECRET_KEY 后面的值可根据自己喜好设置
 
 -v 为挂载盘
+
 /disk1/dockerContainer/minio/data:/data
+
 意思为  docker 内的/data 目录映射 你本地linux 的 /disk1/dockerContainer/minio/data 
 
 
