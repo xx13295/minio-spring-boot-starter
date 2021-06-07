@@ -16,6 +16,9 @@ public class MinioUtils {
      * @return
      */
     public static String getSuffix(String fileName) {
+        if(fileName == null){
+            throw new IllegalArgumentException("非法文件名称");
+        }
         int index = fileName.lastIndexOf(".");
         if (index != -1) {
             String suffix = fileName.substring(index + 1);
@@ -33,7 +36,7 @@ public class MinioUtils {
      */
     public static String getFileName(String object){
         if(object == null || "".equals(object)){
-            throw new IllegalArgumentException("非法文件名称：" + object);
+            throw new IllegalArgumentException("非法文件名称");
         }
         String[] a =  object.split("/");
         return a[a.length-1];

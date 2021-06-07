@@ -79,13 +79,14 @@ public class MinioTemplate {
     }
 
     @PostConstruct
-    private void initDefaultBucket(){
+    private void initDefaultBucket() {
         createBucket(bucket);
         log.info("Init Default Bucket :{} .", bucket);
     }
 
     /**
      * 创建bucket
+     *
      * @param bucket
      */
     public void createBucket(String bucket) {
@@ -101,20 +102,19 @@ public class MinioTemplate {
     /**
      * 获取整个对象的数据作为给定存储桶中的InputStream 。 InputStream 必须在使用后关闭，否则连接将保持打开状态。
      * 例子：
-     *
-     *         InputStream in = minioTemplate.getObjectInputStream("bucket", "object");
-     *         OutputStream out = response.getOutputStream();
-     *         byte[] buf = new byte[1024];
-     *         int len = 0;
-     *         response.reset();
-     *         response.setContentType("application/x-msdownload");
-     *         response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(MinioUtils.getFileName(object), "UTF-8"));
-     *         while ((len = in.read(buf)) > 0) {
-     *             out.write(buf, 0, len);
-     *         }
-     *         in.close();
-     *         out.close();
-     *
+     * <p>
+     * InputStream in = minioTemplate.getObjectInputStream("bucket", "object");
+     * OutputStream out = response.getOutputStream();
+     * byte[] buf = new byte[1024];
+     * int len = 0;
+     * response.reset();
+     * response.setContentType("application/x-msdownload");
+     * response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(MinioUtils.getFileName(object), "UTF-8"));
+     * while ((len = in.read(buf)) > 0) {
+     * out.write(buf, 0, len);
+     * }
+     * in.close();
+     * out.close();
      *
      * @param bucket 存储桶名称
      * @param object 存储桶中的对象名称
@@ -134,6 +134,7 @@ public class MinioTemplate {
 
     /**
      * 获取默认 bucket 中的文件 InputStream
+     *
      * @param object 存储桶中的对象名称
      * @return
      */
@@ -142,9 +143,7 @@ public class MinioTemplate {
     }
 
 
-
     /**
-     *
      * 获取文件url 自定义过期时间
      *
      * @param bucket   存储桶名称
@@ -214,16 +213,13 @@ public class MinioTemplate {
             String[] folders = MinioUtils.getDateFolder();
             String fileName = MinioUtils.getUUID() + "." + MinioUtils.getSuffix(multipartFile.getOriginalFilename());
             // 年/月/日/file
-            String finalPath = new StringBuilder(String.join(URI_DELIMITER, folders))
-                    .append(URI_DELIMITER)
-                    .append(fileName).toString();
-            ObjectWriteResponse response = minioClient.putObject(PutObjectArgs.builder()
+            String finalPath = String.join(URI_DELIMITER, folders) + URI_DELIMITER + fileName;
+            return minioClient.putObject(PutObjectArgs.builder()
                     .stream(multipartFile.getInputStream(), multipartFile.getSize(), ObjectWriteArgs.MIN_MULTIPART_SIZE)
                     .object(finalPath)
                     .contentType(multipartFile.getContentType())
                     .bucket(bucket)
                     .build());
-            return response;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -242,9 +238,7 @@ public class MinioTemplate {
             String[] folders = MinioUtils.getDateFolder();
             for (MultipartFile multipartFile : multipartFiles) {
                 String fileName = MinioUtils.getUUID() + "." + MinioUtils.getSuffix(multipartFile.getOriginalFilename());
-                String finalPath = new StringBuilder(String.join(URI_DELIMITER, folders))
-                        .append(URI_DELIMITER)
-                        .append(fileName).toString();
+                String finalPath = String.join(URI_DELIMITER, folders) + URI_DELIMITER + fileName;
                 ObjectWriteResponse response = minioClient.putObject(PutObjectArgs.builder()
                         .stream(multipartFile.getInputStream(), multipartFile.getSize(), ObjectWriteArgs.MIN_MULTIPART_SIZE)
                         .object(finalPath)
