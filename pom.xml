@@ -10,7 +10,7 @@
     </parent>
     <groupId>plus.ojbk</groupId>
     <artifactId>minio-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>minio-spring-boot-starter</name>
     <description>Minio Starter project for Spring Boot</description>
     <url>https://ojbk.plus/</url>
@@ -76,7 +76,7 @@
 
 
     <build>
-        <pluginManagement>
+
         <plugins>
             <!-- Source -->
             <plugin>
@@ -140,6 +140,6 @@
                 <version>2.5.1</version>
             </plugin>
         </plugins>
-        </pluginManagement>
+
     </build>
 </project>

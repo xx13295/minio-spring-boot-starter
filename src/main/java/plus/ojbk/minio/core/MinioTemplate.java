@@ -57,7 +57,7 @@ public class MinioTemplate {
      * 拓展使用
      * 获取 MinioClient
      *
-     * @return
+     * @return MinioClient
      */
     public MinioClient getMinioClient() {
         if (expandClient == null) {
@@ -87,7 +87,7 @@ public class MinioTemplate {
     /**
      * 创建bucket
      *
-     * @param bucket
+     * @param bucket  存储桶名称
      */
     public void createBucket(String bucket) {
         try {
@@ -101,24 +101,10 @@ public class MinioTemplate {
 
     /**
      * 获取整个对象的数据作为给定存储桶中的InputStream 。 InputStream 必须在使用后关闭，否则连接将保持打开状态。
-     * 例子：
-     * <p>
-     * InputStream in = minioTemplate.getObjectInputStream("bucket", "object");
-     * OutputStream out = response.getOutputStream();
-     * byte[] buf = new byte[1024];
-     * int len = 0;
-     * response.reset();
-     * response.setContentType("application/x-msdownload");
-     * response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(MinioUtils.getFileName(object), "UTF-8"));
-     * while ((len = in.read(buf)) > 0) {
-     * out.write(buf, 0, len);
-     * }
-     * in.close();
-     * out.close();
      *
      * @param bucket 存储桶名称
      * @param object 存储桶中的对象名称
-     * @return
+     * @return InputStream
      */
     public InputStream getObjectInputStream(String bucket, String object) {
         try {
@@ -136,7 +122,7 @@ public class MinioTemplate {
      * 获取默认 bucket 中的文件 InputStream
      *
      * @param object 存储桶中的对象名称
-     * @return
+     * @return InputStream
      */
     public InputStream getObjectInputStream(String object) {
         return getObjectInputStream(bucket, object);
@@ -150,7 +136,7 @@ public class MinioTemplate {
      * @param object   存储桶中的对象名称
      * @param duration 时长
      * @param unit     单位
-     * @return
+     * @return url
      */
     public String getObject(String bucket, String object, int duration, TimeUnit unit) {
         try {
@@ -168,7 +154,7 @@ public class MinioTemplate {
      * 过期时间 默认1小时
      *
      * @param object 存储桶中的对象名称
-     * @return
+     * @return url
      */
     public String getObject(String object) {
         return getObject(object, 1, TimeUnit.HOURS);
@@ -180,7 +166,7 @@ public class MinioTemplate {
      * @param object   存储桶中的对象名称
      * @param duration 时长
      * @param unit     单位
-     * @return
+     * @return url
      */
     public String getObject(String object, int duration, TimeUnit unit) {
         return getObject(bucket, object, duration, unit);
@@ -189,7 +175,7 @@ public class MinioTemplate {
     /**
      * 删除文件
      *
-     * @param object
+     * @param object 存储桶中的对象名称
      */
     public void deleteObject(String object) {
         try {
@@ -205,8 +191,8 @@ public class MinioTemplate {
     /**
      * 上传文件
      *
-     * @param multipartFile
-     * @return
+     * @param multipartFile 文件
+     * @return ObjectWriteResponse
      */
     public ObjectWriteResponse putObject(MultipartFile multipartFile) {
         try {
@@ -229,8 +215,8 @@ public class MinioTemplate {
     /**
      * 上传文件
      *
-     * @param multipartFiles
-     * @return
+     * @param multipartFiles 文件
+     * @return List
      */
     public List<ObjectWriteResponse> putObject(MultipartFile... multipartFiles) {
         try {

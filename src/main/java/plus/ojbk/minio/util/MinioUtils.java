@@ -12,8 +12,8 @@ public class MinioUtils {
     /**
      * 获取文件后缀
      *
-     * @param fileName
-     * @return
+     * @param fileName 文件名
+     * @return String
      */
     public static String getSuffix(String fileName) {
         if(fileName == null){
@@ -32,7 +32,7 @@ public class MinioUtils {
     /**
      * 获取文件名
      * @param object 存储桶中的对象名称
-     * @return
+     * @return String
      */
     public static String getFileName(String object){
         if(object == null || "".equals(object)){
@@ -45,7 +45,7 @@ public class MinioUtils {
     /**
      * 获取年月日[2020, 09, 01]
      *
-     * @return
+     * @return String
      */
     public static String[] getDateFolder() {
         String[] retVal = new String[3];
@@ -61,7 +61,7 @@ public class MinioUtils {
     /**
      * 获取UUID
      *
-     * @return
+     * @return String
      */
     public static String getUUID(){
        return  UUID.randomUUID().toString().replace("-", "");
