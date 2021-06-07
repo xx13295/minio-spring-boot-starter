@@ -87,7 +87,7 @@ public class MinioTemplate {
     /**
      * 创建bucket
      *
-     * @param bucket  存储桶名称
+     * @param bucket 存储桶名称
      */
     public void createBucket(String bucket) {
         try {
@@ -178,6 +178,16 @@ public class MinioTemplate {
      * @param object 存储桶中的对象名称
      */
     public void deleteObject(String object) {
+        deleteObject(bucket, object);
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param bucket 存储桶名称
+     * @param object 存储桶中的对象名称
+     */
+    public void deleteObject(String bucket, String object) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
                     .bucket(bucket)
@@ -188,13 +198,15 @@ public class MinioTemplate {
         }
     }
 
+
     /**
      * 上传文件
      *
+     * @param bucket 存储桶名称
      * @param multipartFile 文件
      * @return ObjectWriteResponse
      */
-    public ObjectWriteResponse putObject(MultipartFile multipartFile) {
+    public ObjectWriteResponse putObject(String bucket, MultipartFile multipartFile) {
         try {
             String[] folders = MinioUtils.getDateFolder();
             String fileName = MinioUtils.getUUID() + "." + MinioUtils.getSuffix(multipartFile.getOriginalFilename());
@@ -209,6 +221,18 @@ public class MinioTemplate {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+
+    /**
+     * 上传文件
+     *
+     * @param multipartFile 文件
+     * @return ObjectWriteResponse
+     */
+    public ObjectWriteResponse putObject(MultipartFile multipartFile) {
+        return putObject(bucket, multipartFile);
     }
 
 
