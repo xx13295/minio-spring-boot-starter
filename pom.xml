@@ -10,7 +10,7 @@
     </parent>
     <groupId>plus.ojbk</groupId>
     <artifactId>minio-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>minio-spring-boot-starter</name>
     <description>Minio Starter project for Spring Boot</description>
     <url>https://ojbk.plus/</url>
@@ -28,7 +28,7 @@
             <url>https://github.com/xx13295/minio-spring-boot-starter</url>
         </developer>
     </developers>
-    <!--licenses信息-->
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -39,8 +39,8 @@
     <scm>
         <tag>master</tag>
         <url>git@github.com:xx13295/minio-spring-boot-starter.git</url>
-        <connection>scm:git:git@github.com:xx13295/minio-spring-boot-starter.git</connection>
-        <developerConnection>scm:git:git@github.com:xx13295/minio-spring-boot-starter.git</developerConnection>
+        <connection>scm:git@github.com:xx13295/minio-spring-boot-starter.git</connection>
+        <developerConnection>scm:git@github.com:xx13295/minio-spring-boot-starter.git</developerConnection>
     </scm>
 
     <dependencies>
@@ -48,7 +48,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -279,4 +279,26 @@ public class MinioTemplate {
         return putObject(bucket, multipartFiles);
     }
 
+    /**
+     * 上传文件
+     * bucket 和 object 自理
+     * contentType 默认 application/octet-stream
+     *
+     * @param bucket 存储桶名称
+     * @param object 存储桶中的对象名称
+     * @param stream 文件输入流
+     * @return
+     */
+    public ObjectWriteResponse putObject(String bucket, String object, InputStream stream) {
+        try {
+            return minioClient.putObject(PutObjectArgs.builder()
+                    .stream(stream, -1, ObjectWriteArgs.MIN_MULTIPART_SIZE)
+                    .object(object)
+                    .contentType("application/octet-stream")
+                    .bucket(bucket)
+                    .build());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
