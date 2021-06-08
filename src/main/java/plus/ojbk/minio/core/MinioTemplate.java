@@ -120,6 +120,7 @@ public class MinioTemplate {
 
     /**
      * 获取默认 bucket 中的文件 InputStream
+     * 使用默认的bucket
      *
      * @param object 存储桶中的对象名称
      * @return InputStream
@@ -152,6 +153,7 @@ public class MinioTemplate {
     /**
      * 获取文件url
      * 过期时间 默认1小时
+     * 使用默认的bucket
      *
      * @param object 存储桶中的对象名称
      * @return url
@@ -162,6 +164,7 @@ public class MinioTemplate {
 
     /**
      * 获取文件url 自定义过期时间
+     * 使用默认的bucket
      *
      * @param object   存储桶中的对象名称
      * @param duration 时长
@@ -174,6 +177,7 @@ public class MinioTemplate {
 
     /**
      * 删除文件
+     * 使用默认的bucket
      *
      * @param object 存储桶中的对象名称
      */
@@ -202,7 +206,7 @@ public class MinioTemplate {
     /**
      * 上传文件
      *
-     * @param bucket 存储桶名称
+     * @param bucket        存储桶名称
      * @param multipartFile 文件
      * @return ObjectWriteResponse
      */
@@ -224,9 +228,9 @@ public class MinioTemplate {
     }
 
 
-
     /**
      * 上传文件
+     * 使用默认的bucket
      *
      * @param multipartFile 文件
      * @return ObjectWriteResponse
@@ -235,14 +239,14 @@ public class MinioTemplate {
         return putObject(bucket, multipartFile);
     }
 
-
     /**
      * 上传文件
      *
+     * @param bucket         存储桶名称
      * @param multipartFiles 文件
      * @return List
      */
-    public List<ObjectWriteResponse> putObject(MultipartFile... multipartFiles) {
+    public List<ObjectWriteResponse> putObject(String bucket, MultipartFile... multipartFiles) {
         try {
             List<ObjectWriteResponse> retVal = new ArrayList<>();
             String[] folders = MinioUtils.getDateFolder();
@@ -264,5 +268,15 @@ public class MinioTemplate {
         }
     }
 
+    /**
+     * 上传文件
+     * 使用默认的bucket
+     *
+     * @param multipartFiles 文件
+     * @return List
+     */
+    public List<ObjectWriteResponse> putObject(MultipartFile... multipartFiles) {
+        return putObject(bucket, multipartFiles);
+    }
 
 }
