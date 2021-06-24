@@ -76,10 +76,6 @@ public class MinioTemplate {
         this.bucket = properties.getBucket();
         this.accessKey = properties.getAccessKey();
         this.secretKey = properties.getSecretKey();
-    }
-
-    @PostConstruct
-    private void initDefaultBucket() {
         createBucket(bucket);
         log.info("Init Default Bucket :{} .", bucket);
     }
