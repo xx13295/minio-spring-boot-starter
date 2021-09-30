@@ -203,12 +203,13 @@ public class MinioTemplate {
      * 上传文件
      *
      * @param bucket        存储桶名称
+     * @param folder        文件夹
      * @param multipartFile 文件
      * @return ObjectWriteResponse
      */
-    public ObjectWriteResponse putObject(String bucket, MultipartFile multipartFile) {
+    public ObjectWriteResponse putObject(String bucket, String folder, MultipartFile multipartFile) {
         try {
-            String[] folders = MinioUtils.getDateFolder();
+            String[] folders = MinioUtils.getDateFolder(folder);
             String fileName = MinioUtils.getUUID() + "." + MinioUtils.getSuffix(multipartFile.getOriginalFilename());
             // 年/月/日/file
             String finalPath = String.join(URI_DELIMITER, folders) + URI_DELIMITER + fileName;
@@ -232,20 +233,33 @@ public class MinioTemplate {
      * @return ObjectWriteResponse
      */
     public ObjectWriteResponse putObject(MultipartFile multipartFile) {
-        return putObject(bucket, multipartFile);
+        return putObject(null, multipartFile);
+    }
+
+    /**
+     * 上传文件
+     * 使用默认的bucket
+     *
+     * @param folder        自定义文件夹
+     * @param multipartFile 文件
+     * @return ObjectWriteResponse
+     */
+    public ObjectWriteResponse putObject(String folder, MultipartFile multipartFile) {
+        return putObject(bucket, folder, multipartFile);
     }
 
     /**
      * 上传文件
      *
      * @param bucket         存储桶名称
+     * @param folder         自定义文件夹
      * @param multipartFiles 文件
      * @return List
      */
-    public List<ObjectWriteResponse> putObject(String bucket, MultipartFile... multipartFiles) {
+    public List<ObjectWriteResponse> putObject(String bucket, String folder, MultipartFile... multipartFiles) {
         try {
             List<ObjectWriteResponse> retVal = new ArrayList<>();
-            String[] folders = MinioUtils.getDateFolder();
+            String[] folders = MinioUtils.getDateFolder(folder);
             for (MultipartFile multipartFile : multipartFiles) {
                 String fileName = MinioUtils.getUUID() + "." + MinioUtils.getSuffix(multipartFile.getOriginalFilename());
                 String finalPath = String.join(URI_DELIMITER, folders) + URI_DELIMITER + fileName;
@@ -272,7 +286,19 @@ public class MinioTemplate {
      * @return List
      */
     public List<ObjectWriteResponse> putObject(MultipartFile... multipartFiles) {
-        return putObject(bucket, multipartFiles);
+        return putObject(null, multipartFiles);
+    }
+
+    /**
+     * 上传文件
+     * 使用默认的bucket
+     *
+     * @param folder         自定义文件夹
+     * @param multipartFiles 文件
+     * @return List
+     */
+    public List<ObjectWriteResponse> putObject(String folder, MultipartFile... multipartFiles) {
+        return putObject(bucket, folder, multipartFiles);
     }
 
     /**
